@@ -85,7 +85,7 @@
     /*COLORES*/
     --text-dark: #00000; /*Color textos en negro*/
     --text-light: #949494; /*Color textos en gris*/
-    --text-lighter: #C5C5C5; /*Color textos en gris*/
+    --text-lighter: #BBBBBB; /*Color textos en gris*/
 
     /*FUENTES*/
     --font-family: 'Aspekta', sans-serif; 
@@ -395,7 +395,7 @@ body {
 
 
 /* MEDIA IPAD */
-@media (max-width: 750px) {
+@media (max-width: 700px) {
 
      /* MEDIA WORK */
     .section__h1 {
@@ -403,7 +403,7 @@ body {
     }
 
     .section__content_grid {
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     row-gap: 60px;
     column-gap: 0;
     width: 90%;
