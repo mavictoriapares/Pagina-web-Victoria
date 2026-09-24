@@ -174,7 +174,7 @@ body {
 
 .section__h1 {
     color: var(--text-lighter);
-    font-weight: 350;
+    font-weight: 400;
     font-family: var(--font-family);
 }
 
@@ -183,11 +183,10 @@ body {
 .section__content {
     display: flex;
     flex-direction: column;
-    gap: 80px;
+    gap: 60px;
     width: 90%;
     max-width: 674px;
     margin: 0 auto;
-
 }
 
 .section__description_titles {
@@ -242,19 +241,19 @@ body {
 .h2__section__content {
     color: var(--text-dark);
     font-size: 18px;
-    font-weight: 400;
+    font-weight: 450;
 }
 
 .h3__section__content {
     color: var(--text-light);
     font-size: 18px;
-    font-weight: 400;
+    font-weight: 450;
 }
 
 .p__section__content {
     color: var(--text-light);
     font-size: 16px;
-    font-weight: 350;
+    font-weight: 400;
 }
 
 /* BUTTONS GRID */
@@ -332,7 +331,7 @@ body {
         gap: 50px;
     }
 
-.div__information {
+    .div__information {
         display: flex;
         flex-direction: column;
         gap: 4px;
@@ -433,8 +432,8 @@ body {
     /* MEDIA WORK */
 
     .section__h1 {
-    font-size: 22px;
-    line-height: 122%;
+    font-size: 23px;
+    line-height: 124%;
     }
 
     .div__content img, .div__content_driv img {
