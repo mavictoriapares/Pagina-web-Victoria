@@ -39,7 +39,7 @@
         <!------------------------- H1 ----------------------------->
         <section class="section__hero">
             <h1 class="section__h1">
-                Victoria Parés, Product <br class="break">Digital and Graphic Designer<br class="break">
+                <span class="section__h1--name">Victoria Parés</span><br class="break">Product Digital and Graphic Designer
                 based in Valencia, Spain.
             </h1>
         </section>
@@ -49,18 +49,26 @@
         <section class="section__content">
 
             <div class="div__content div__img_1">
-                <div class="media__wrapper">
-                    <img src="Media/fotoprueba.avif" alt="img1" class="media__img media__img--default">
-                    <img src="Media/fotoprueba.avif" alt="img1" class="media__img media__img--hover">
+                <div class="media__wrapper media__wrapper--framed">
+                    <img src="Media/Proyecto_1_Default.jpg" alt="" class="media__bg">
+                    <video 
+                        class="media__video--framed" 
+                        src="Media/Proyecto_1_Video.mov" 
+                        poster="Media/Proyecto_1_Web_Poster.jpg"
+                        autoplay 
+                        muted 
+                        loop 
+                        playsinline>
+                    </video>
                 </div>
                 <div class="section__description">
                     <div class="section__description_titles">
-                        <h2 class="h2 h2__section__content">Pedro Website</h2>
+                        <h2 class="h2 h2__section__content">Pedro Web Portfolio</h2>
                         <h3 class="h3 h3__section__content">2026</h3>
                     </div>
                     <p class="p p__section__content">Web Design, Development</p>
                 </div>
-            </div>
+            </div>  
 
             <div class="div__content div__img_2">
                 <div class="media__wrapper">
@@ -78,8 +86,14 @@
 
             <div class="div__content div__img_3">
                 <div class="media__wrapper">
-                    <img src="Media/fotoprueba.avif" alt="img1" class="media__img media__img--default">
-                    <img src="Media/fotoprueba.avif" alt="img1" class="media__img media__img--hover">
+                    <picture>
+                        <source srcset="Media/Proyecto_3.3_Default.webp" type="image/webp">
+                        <img src="Media/Proyecto_3_Default.jpg" alt="img1" class="media__img media__img--default">
+                    </picture>
+                    <picture>
+                        <source srcset="Media/Proyecto_3_Hover.webp" type="image/webp">
+                        <img src="Media/Proyecto_3_Hover.jpg" alt="img1" class="media__img media__img--hover">
+                    </picture>
                 </div>
                 <div class="section__description">
                     <div class="section__description_titles">
@@ -106,8 +120,14 @@
 
             <div class="div__content div__img_5">
                 <div class="media__wrapper">
-                    <img src="Media/Proyecto_5_Default.png" alt="img1" class="media__img media__img--default">
-                    <img src="Media/fotoprueba.avif" alt="img1" class="media__img media__img--hover">
+                    <picture>
+                        <source srcset="Media/Proyecto_5_Default.webp" type="image/webp">
+                        <img src="Media/Proyecto_5_Default.jpg" alt="img1" class="media__img media__img--default">
+                    </picture>
+                    <picture>
+                        <source srcset="Media/Proyecto_5_Hover.webp" type="image/webp">
+                        <img src="Media/Proyecto_5_Hover.jpg" alt="img1" class="media__img media__img--hover">
+                    </picture>
                 </div>
                 <div class="section__description">
                     <div class="section__description_titles">
@@ -120,12 +140,18 @@
 
             <div class="div__content div__img_6">
                 <div class="media__wrapper">
-                    <img src="Media/fotoprueba.avif" alt="img6" class="media__img media__img--default">
-                    <img src="Media/fotoprueba.avif" alt="img6" class="media__img media__img--hover">
+                    <picture>
+                        <source srcset="Media/Proyecto_5_Default.webp" type="image/webp">
+                        <img src="Media/Proyecto_5_Default.jpg" alt="img6" class="media__img media__img--default">
+                    </picture>
+                    <picture>
+                        <source srcset="Media/Proyecto_5_Hover.webp" type="image/webp">
+                        <img src="Media/Proyecto_5_Hover.jpg" alt="img6" class="media__img media__img--hover">
+                    </picture>
                 </div>
                 <div class="section__description">
                     <div class="section__description_titles">
-                        <h2 class="h2 h2__section__content">RAINS Microsite</h2>
+                        <h2 class="h2 h2__section__content">Microsite RAINS</h2>
                         <h3 class="h3 h3__section__content">2024</h3>
                     </div>
                     <p class="p p__section__content">Web Design, UX/UI</p>
