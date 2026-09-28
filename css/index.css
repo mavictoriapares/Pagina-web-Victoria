@@ -143,6 +143,7 @@ body {
     top: 0;
     left: 0;
     width: 100%;
+    z-index: 250;
 }
 
 .header ul {
@@ -168,8 +169,171 @@ body {
 
 .header a, .div__section_grid a {
     font-family: var(--font-family);
-    font-weight: 500;
+    font-weight: 450;
     font-size: 14px;
+}
+
+/*ABOUT CONTAINER*/
+.about-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 150;
+    overflow-y: auto;              
+    overscroll-behavior: contain;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.8s ease;
+}
+
+
+/* El fondo borroso pasa a un pseudo-elemento */
+.about-overlay::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(208, 204, 204, 0.25);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: -1;
+}
+
+.about-overlay.is-open {
+    opacity: 1;                    /* tenías 2, el máximo válido es 1 */
+    pointer-events: auto;
+}
+
+.about-panel {
+    position: relative;            /* ya no es fixed */
+    width: min(590px, 94%);
+    height: auto;                  /* se ajusta al contenido */
+    margin: 7.8vh auto;            /* espacio arriba y abajo al hacer scroll */
+    background: rgb(226, 224, 224, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 28px 24px;
+    border-radius: 6px;
+    transform: translateY(30px);   /* sin translateX, ya se centra con margin auto */
+    opacity: 0;
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+.about-overlay.is-open .about-panel {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.about-panel.is-open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+}
+
+.about-panel__close {
+    position: sticky;
+    top: 0;
+    float: right;
+    background: none;
+    border: none;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    color: var(--text-dark);
+}
+
+body.no-scroll {
+    overflow: hidden;
+}
+
+.div-panel__content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.div-panel__cards {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.ul__skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 4px;
+}
+
+.li__skills {
+    font-family: var(--font-family);
+    font-size: 12px;
+    font-weight: 350;
+    line-height: 1;
+    color: var(--text-dark);
+    background: rgba(0, 0, 0, 0.08);
+    padding: 8px 12px;
+    border-radius: 6px;
+}
+
+.p-panel__about, .h3__about {
+    font-family: var(--font-family);
+    font-size: 16px;
+    font-weight: 350;
+    line-height: 125%;
+}
+
+.h2-panel__titles {
+    font-family: var(--font-family);
+    font-size: 11px;
+    font-weight: 350;
+    color: var(--text-light);
+}
+
+.div-panel__cards {
+    display: flex;
+    flex-direction: column;
+}
+
+.div__about_titles {
+    display: flex;
+    justify-content: space-between;
+}
+
+.h3__about_date {
+    font-family: var(--font-family);
+    font-size: 16px;
+    font-weight: 350;
+    color: var(--text-light);
+}
+
+.h4__about {
+    font-family: var(--font-family);
+    font-size: 15px;
+    font-weight: 350;
+    color: var(--text-light);
+}
+
+.li__about_enlaces {
+    font-family: var(--font-family);
+    font-size: 16px;
+    font-weight: 350;
+}
+
+.p__about_info {
+    font-family: var(--font-family);
+    font-size: 16px;
+    color: var(--text-light);
+    font-weight: 350;
+}
+
+.hr-panel {
+    border: none;
+    margin: 3px;
+}
+
+.div-panel__contact {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
 }
 
 /* HERO */
@@ -348,93 +512,6 @@ body {
     padding-right: var(--side-margin);
 }
 
-/* MAIN ABOUT */
-
-.main__about {
-    padding-top: 80px;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin: 0 auto;
-    gap: 35px;
-    padding-left: var(--side-margin-about);
-    padding-right: var(--side-margin-about);
-}
-
-@media (min-width: 500px) {
-    .break-desktop {
-        display: inline;
-    }
-
-    .p__about {
-        color: var(--text-lighter);
-        font-size: 28px;
-        line-height: 130%;
-        font-family: var(--font-family);
-        font-weight: 350;
-    }
-
-    .div__about {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 50px;
-    }
-
-    .div__information {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-    }
-
-    .div__about_right, .div__about_left {
-        display: flex;
-        flex-direction: column;
-        gap: 26px;
-    }
-
-    .h2__about {
-        font-family: var(--font-family);
-        font-size: 18px;
-        font-weight: 450;
-    }
-
-    .div__about_titles {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        gap: 20px;
-    }
-
-    .h3__about {
-        font-family: var(--font-family);
-        font-size: 18px;
-        font-weight: 350;
-        color: var(--text-light);
-    }
-
-    .h4__about {
-        font-family: var(--font-family);
-        font-size: 15px;
-        font-weight: 350;
-        color: var(--text-light);
-    }
-
-    .li__about_enlaces, .p__about_info {
-        font-family: var(--font-family);
-        font-size: 21px;
-        font-weight: 300;
-        color: var(--text-light);
-    }
-
-    .break-mobile {
-        display: none;
-    }
-
-    .break-tablet {
-        display: none;
-    }
-}
-
 /* FOOTER */
     .p__footer {
         display: flex;
@@ -483,40 +560,6 @@ body {
     column-gap: 28px; 
     }
 
-     /* MEDIA ABOUT */
-
-    .div__about {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 50px;
-    }
-
-    .p__about {
-    font-size: 22px;
-    line-height: 124%;
-    }
-
-    .break-tablet {
-        display: block;
-    }
-
-    .h2__about {
-        font-size: 17px;
-    }
-
-    .h3__about {
-        font-size: 17px;
-    }
-
-    .h4__about {
-        font-size: 14px;
-    }
-
-    .li__about_enlaces, .p__about_info {
-        font-size: 19px;
-    }
-
-
     }
     
 
@@ -550,70 +593,6 @@ body {
     body {
     padding-bottom: 1px;
 }
-
-    /* MEDIA ABOUT */
-
-    .div__about {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    gap: 50px;
-    }
-
-    .p__about {
-    font-size: 17px;
-    line-height: 130%;
-    color: var(--text-lighter);
-    font-family: var(--font-family);
-    font-weight: 350;
-    }
-
-    .break-mobile {
-    display: inline;
-    }
-
-    .h2__about {
-    font-size: 17px;
-    font-family: var(--font-family);
-    font-weight: 450;
-    color: var(--text-dark);
-    }
-
-    .h3__about {
-    font-size: 17px;
-    font-family: var(--font-family);
-    font-weight: 450;
-    color: var(--text-light);
-    }
-
-    .h4__about {
-    font-size: 13px;
-    font-family: var(--font-family);
-    font-weight: 350;
-    color: var(--text-light);
-    }
-
-    .li__about_enlaces, .p__about_info {
-    font-size: 21px;
-    font-family: var(--font-family);
-    font-weight: 300;
-    color: var(--text-light);
-    }
-
-    .div__about {
-    gap: 40px;
-    }
-
-    .div__about_left {
-    display: flex;
-    flex-direction: column;
-    gap: 26px;
-}
-
-    .div__information {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    }
     
 }
 /*----------------MEDIA QUERYS---------------*/
