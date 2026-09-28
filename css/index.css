@@ -266,7 +266,7 @@ body.no-scroll {
 .li__skills {
     font-family: var(--font-family);
     font-size: 12px;
-    font-weight: 350;
+    font-weight: 400;
     line-height: 1;
     color: var(--text-dark);
     background: rgba(0, 0, 0, 0.08);
@@ -593,8 +593,14 @@ body.no-scroll {
     body {
     padding-bottom: 1px;
 }
-    
+
+  /* MEDIA ABOUT */
+
+    .break-desktop {
+        display: none;}
+
 }
+
 /*----------------MEDIA QUERYS---------------*/
 
 
