@@ -101,6 +101,9 @@
     --side-margin: clamp(16px, 3vw, 64px);
     --side-margin-about: clamp(16px, 3vw, 24px);
     --hero-gap: 190px;
+    --header-height: 70px;
+    --header-btn-height: 26px;
+    --header-gap: calc((var(--header-height) - var(--header-btn-height)) / 2); 
 }
 
 /* RESET CSS */
@@ -177,7 +180,6 @@ body {
     animation: fade-up 1s ease 0.25s both;
 }
 
-/* Respeta a quien tiene desactivadas las animaciones en su sistema */
 @media (prefers-reduced-motion: reduce) {
     .header,
     .div__section_grid,
@@ -228,7 +230,7 @@ body {
 
 /* HEADER */
 .header {
-    height: 70px;
+    height: var(--header-height);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -307,16 +309,16 @@ body {
 }
 
 .about-panel {
-    position: relative;            /* ya no es fixed */
+    position: relative;           
     width: min(550px, 94%);
-    height: auto;                  /* se ajusta al contenido */
-    margin: 7.8vh auto;            /* espacio arriba y abajo al hacer scroll */
+    height: auto;                  
+    margin: var(--header-height) auto;           
     background: rgb(226, 224, 224, 0.8);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     padding: 30px 24px;
     border-radius: 6px;
-    transform: translateY(30px);   /* sin translateX, ya se centra con margin auto */
+    transform: translateY(30px); 
     opacity: 0;
     transition: opacity 0.8s ease, transform 0.8s ease;
 }
