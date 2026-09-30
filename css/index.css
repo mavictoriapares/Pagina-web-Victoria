@@ -879,8 +879,9 @@ body.no-scroll {
     }
 
 .p__content_information {
-    line-height: 136%;
+    line-height: 133%;
     font-size: 15px;
+    font-weight: 400;
 }
 
 }
