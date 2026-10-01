@@ -165,14 +165,11 @@ body {
     to   { opacity: 1; }
 }
 
-/* Header y botones de abajo: solo aparecen */
 .header,
 .div__section_grid {
     animation: fade-in 1s ease backwards;
 }
-
-/* Título y proyectos: aparecen subiendo, uno detrás de otro */
-.section__hero {
+.section__hero, .div__project_container {
     animation: fade-up 1s ease both;
 }
 
@@ -181,12 +178,20 @@ body {
     animation: fade-up 1s ease 0.25s both;
 }
 
+.div__project_container ~ .div__gallery,
+.div__project_container ~ .div__research {
+    animation: fade-up 1s ease 0.25s both;
+}
+
 @media (prefers-reduced-motion: reduce) {
     .header,
     .div__section_grid,
     .section__hero,
     .section__content,
-    .section__content_grid {
+    .section__content_grid,
+    .div__project_container,
+    .div__project_container ~ .div__gallery,
+    .div__project_container ~ .div__research {
         animation: none;
     }
 }
@@ -282,11 +287,9 @@ body {
     overscroll-behavior: contain;
     visibility: hidden;
     pointer-events: none;
-    transition: visibility 0s linear 0.8s; /* espera a que termine el fade al cerrar */
+    transition: visibility 0s linear 0.8s; 
 }
 
-
-/* El fondo borroso pasa a un pseudo-elemento */
 .about-overlay::before {
     content: "";
     position: fixed;
@@ -466,7 +469,6 @@ body.no-scroll {
 }
 
 /* CONTENT */
-
 .media__wrapper--framed {
     position: relative;
     overflow: hidden;
@@ -575,7 +577,6 @@ body.no-scroll {
 }
 
 /* BUTTONS GRID */
-
 .div__section_grid {
     height: 70px;
     display: flex;
@@ -608,8 +609,6 @@ body.no-scroll {
 }
 
 /* CONTENT GRID */
-
-
 .section__content_grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -623,7 +622,6 @@ body.no-scroll {
 }
 
 /* PROJECTS */
-
 .container {
     width: 100%;
     max-width: var(--max-width-content);
@@ -759,6 +757,56 @@ body.no-scroll {
     }
 }
 
+/* WAYFINDING */
+.video__frame {
+    width: 100%;
+    aspect-ratio: 16 / 7;     
+    background: #000;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.video__frame video {
+    height: 100%;     
+    width: auto;
+    max-width: 100%;
+    display: block;
+}
+
+.div__gallery_group video {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 10px;
+    display: block;
+}
+
+.div__gallery_group video {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 10px;
+    display: block;
+}
+
+.video__crop {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.video__crop video {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+    object-fit: cover;
+    display: block;
+    transform: scale(1.03);   /* antes 1.20, demasiado */
+}
+
 /* FOOTER */
     .p__footer {
         display: flex;
@@ -846,17 +894,17 @@ body.no-scroll {
 }
 
   /* MEDIA ABOUT */
-
-    .break-desktop {
-        display: none;}
+.break-desktop {
+        display: none;
+    }
 
 
      /* PROJECTS */
 
     .p__project_information {
-    line-height: 133%;
-    font-size: 15px;
-}
+        line-height: 133%;
+        font-size: 15px;
+    }
 
     .div__gallery_group {
         grid-template-columns: 1fr;
@@ -864,30 +912,37 @@ body.no-scroll {
 
     .img__gallery {
     aspect-ratio: 16 / 10;
-}
-
-.h1__titles_projects {
-    font-size: 24px;
-}
-
-.div__project_container {
-    gap: 16px;
-}
-
-.div__research .img__content {
-        aspect-ratio: 16 / 10;
     }
 
-.p__content_information {
-    line-height: 133%;
-    font-size: 15px;
-    font-weight: 400;
+    .h1__titles_projects {
+        font-size: 24px;
+    }
+
+    .div__project_container {
+        gap: 16px;
+    }
+
+    .div__research .img__content {
+    aspect-ratio: 16 / 10;
+    }
+
+    .p__content_information {
+        line-height: 133%;
+        font-size: 15px;
+        font-weight: 400;
+    }
+
+       /* PROJECTS */
+    .div__project_container {
+        padding-top: 110px;   
+        padding-bottom: 28px; 
+    }
+
+    /* RESEARCH */
+    .div__research {
+        padding-top: 36px;   
+    }
 }
-
-}
-
-
-
 /*----------------MEDIA QUERYS---------------*/
 
 
