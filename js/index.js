@@ -49,3 +49,52 @@
                 el.addEventListener('mouseleave', () => cursorLabel.classList.remove('is-visible'));
             });
         }
+
+    
+
+// --- OCULTAR HEADER Y GRID AL SCROLLEAR ---
+const hideOnScroll = document.querySelectorAll('.header, .div__section_grid:has(img)');
+const showOnScroll = document.querySelectorAll('.div__section_grid:not(:has(img))');
+const SHOW_AFTER = 300; // px de scroll antes de que aparezcan los tags
+
+let lastScrollY = window.pageYOffset;
+let ticking = false;
+
+function onScroll() {
+    const currentY = Math.max(window.pageYOffset, 0);
+    const aboutOpen = document.querySelector('.about-overlay.is-open');
+    const delta = currentY - lastScrollY;
+
+    // Tags de proyecto: aparecen tras SHOW_AFTER px, siempre
+    showOnScroll.forEach(el =>
+        el.classList.toggle('is-visible', currentY > SHOW_AFTER && !aboutOpen)
+    );
+
+    if (aboutOpen) {
+        lastScrollY = currentY;
+        return;
+    }
+
+    if (currentY <= 80) {
+        hideOnScroll.forEach(el => el.classList.remove('is-hidden'));
+        lastScrollY = currentY;
+        return;
+    }
+
+    if (Math.abs(delta) > 6) {
+        const shouldHide = delta > 0;
+        hideOnScroll.forEach(el => el.classList.toggle('is-hidden', shouldHide));
+        lastScrollY = currentY;
+    }
+}
+
+window.addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+        onScroll();
+        ticking = false;
+    });
+}, { passive: true });
+
+onScroll(); // estado correcto al cargar

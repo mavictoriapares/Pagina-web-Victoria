@@ -105,6 +105,11 @@
     --header-btn-height: 26px;
     --header-gap: calc((var(--header-height) - var(--header-btn-height)) / 2); 
     --max-width-content: 1200px;
+
+    /*BOTONES FLOTANTES*/
+    --btn-bg: rgba(235, 235, 235, 0.5);
+    --btn-bg-hover: rgba(245, 245, 245, 0.92);
+    --btn-blur: blur(20px);
 }
 
 /* RESET CSS */
@@ -139,6 +144,13 @@ html, .about-overlay {
 html::-webkit-scrollbar,
 .about-overlay::-webkit-scrollbar {
     display: none;                  /* Chrome, Safari, Edge */
+}
+
+video::-webkit-media-controls,
+video::-webkit-media-controls-start-playback-button,
+video::-webkit-media-controls-panel {
+    display: none !important;
+    -webkit-appearance: none;
 }
 
 /* BODY */
@@ -202,15 +214,16 @@ body {
     top: 0;
     left: 0;
     z-index: 300;
-    pointer-events: none;        
+    pointer-events: none;
     font-family: var(--font-family);
     font-size: 12px;
     font-weight: 400;
+    line-height: 1;
     color: var(--text-dark);
     background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    padding: 8px 10px;
+    padding: 8px 12px;
     border-radius: 6px;
     white-space: nowrap;
     opacity: 0;
@@ -254,14 +267,18 @@ body {
 }
 
 .header li {
-    background: rgba(0, 0, 0, 0.08);
+    width: 84px;
+    text-align: center;
+    background: var(--btn-bg);
+    backdrop-filter: var(--btn-blur);
+    -webkit-backdrop-filter: var(--btn-blur);
     transition: background 0.6s ease;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    padding-left: 22px;
-    padding-right: 22px;
     padding-top: 4.5px;
     padding-bottom: 4.5px;
+    padding-left: 0;
+    padding-right: 0;
     border-radius: 6px;
 }
 
@@ -276,6 +293,23 @@ body {
     font-family: var(--font-family);
     font-weight: 450;
     font-size: 14px;
+}
+
+.header,
+.div__section_grid {
+    transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.header.is-hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.div__section_grid.is-hidden {
+    transform: translateY(100%);
+    opacity: 0;
+    pointer-events: none;
 }
 
 /*ABOUT CONTAINER*/
@@ -548,6 +582,17 @@ body.no-scroll {
     opacity: 0;
 }
 
+.link__external {
+    color: var(--text-dark);
+    transition: color 0.8s ease;
+}
+
+@media (hover: hover) {
+    .link__external:hover {
+        color: var(--text-light);
+    }
+}
+
 @media (hover: hover) and (pointer: fine) {
     .media__wrapper:hover .media__img--hover {
         opacity: 1;
@@ -576,6 +621,12 @@ body.no-scroll {
     font-weight: 400;
 }
 
+.link__project {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
 /* BUTTONS GRID */
 .div__section_grid {
     height: 70px;
@@ -586,10 +637,13 @@ body.no-scroll {
     bottom: 0;
     left: 0;
     width: 100%;
+    z-index: 100;
 }
 
 .div__section_ul {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 14px;
     padding: 0;
     margin: 0;
@@ -597,7 +651,10 @@ body.no-scroll {
 }
 
 .div__section_li {
-    background: rgba(0, 0, 0, 0.08);
+    background: var(--btn-bg);
+    backdrop-filter: var(--btn-glass);
+    -webkit-backdrop-filter: var(--btn-glass);
+    box-shadow: var(--btn-shine);
     transition: background 0.6s ease;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -606,6 +663,48 @@ body.no-scroll {
     padding-top: 10px;
     padding-bottom: 10px;
     border-radius: 6px;
+}
+
+.header a, .div__section_grid a, .div__section_li {
+    font-family: var(--font-family);
+    font-weight: 450;
+    font-size: 14px;
+}
+
+/* TAGS FIJOS EN PÁGINAS DE PROYECTO (ocultos hasta hacer scroll) */
+.div__section_grid:not(:has(img)) {
+    transform: translateY(100%);
+    opacity: 0;
+    pointer-events: none;
+    animation: none; /* evita que parpadeen al cargar */
+}
+
+.div__section_grid:not(:has(img)).is-visible {
+    transform: none;
+    opacity: 1;
+}
+
+.div__section_grid:not(:has(img)) .div__section_li {
+    pointer-events: auto;
+}
+
+/* Tags fijos: mismo aspecto que .li__skills */
+.div__section_grid:not(:has(img)) .div__section_ul {
+    gap: 10px;
+}
+
+.div__section_grid:not(:has(img)) .div__section_li {
+    padding: 0;
+    pointer-events: auto;
+}
+
+.div__section_grid:not(:has(img)) .div__section_li a {
+    display: block;
+    padding: 8px 12px;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1;
+    color: var(--text-dark);
 }
 
 /* CONTENT GRID */
