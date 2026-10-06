@@ -547,7 +547,7 @@ body.no-scroll {
     gap: 70px;
     padding-left: var(--side-margin);
     padding-right: var(--side-margin);
-    max-width: 674px;
+    max-width: 720px;
     margin: 0 auto;
 }
 
