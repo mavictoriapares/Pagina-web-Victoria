@@ -537,7 +537,7 @@ body.no-scroll {
 }
 
 .media__wrapper--color {
-    background:  #c5c5c5;
+    background:  #DFDFDF;
     aspect-ratio: var(--img-ratio);
 }
 
@@ -703,7 +703,7 @@ body.no-scroll {
 
 /* Tags fijos: mismo aspecto que .li__skills */
 .div__section_grid:not(:has(img)) .div__section_ul {
-    gap: 10px;
+    gap: 12px;
 }
 
 .div__section_grid:not(:has(img)) .div__section_li {
