@@ -99,3 +99,31 @@ window.addEventListener('scroll', () => {
 
 onScroll(); // estado correcto al cargar
 
+// --- AUTOPLAY VÍDEOS EN MÓVIL ---
+const autoVideos = document.querySelectorAll('video[autoplay]');
+
+function tryPlay(video) {
+    video.muted = true;               // forzar mute por JS
+    video.setAttribute('playsinline', '');
+    const p = video.play();
+    if (p !== undefined) p.catch(() => {});   // si falla, no hacemos nada
+}
+
+autoVideos.forEach(tryPlay);
+
+// Si el navegador lo bloqueó, reintenta con el primer toque o scroll
+['touchstart', 'click', 'scroll'].forEach((evt) => {
+    window.addEventListener(evt, () => autoVideos.forEach((v) => {
+        if (v.paused) tryPlay(v);
+    }), { once: true, passive: true });
+});
+
+// Reproduce solo los vídeos visibles (ahorra batería)
+const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) tryPlay(entry.target);
+        else entry.target.pause();
+    });
+}, { threshold: 0.25 });
+
+autoVideos.forEach((v) => io.observe(v));
