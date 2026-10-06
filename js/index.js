@@ -51,88 +51,37 @@
             });
         }
 
-        // --- AVISO "COMING SOON" EN MÓVIL (tap) ---
-if (window.matchMedia('(hover: none)').matches) {
-    const toast = document.createElement('div');
-    toast.className = 'cursor-label cursor-label--toast';
-    toast.setAttribute('aria-hidden', 'true');
-    document.body.appendChild(toast);
+// --- AVISO "COMING SOON" EN MÓVIL (tap) ---
+const toast = document.createElement('div');
+toast.className = 'cursor-label cursor-label--toast';
+toast.setAttribute('aria-hidden', 'true');
+document.body.appendChild(toast);
 
-    let toastTimer;
+let toastTimer;
 
-    function hideToast() {
-        toast.classList.remove('is-visible');
+function hideToast() {
+    toast.classList.remove('is-visible');
+    clearTimeout(toastTimer);
+}
+
+document.querySelectorAll('[data-label]').forEach((el) => {
+    el.addEventListener('click', () => {
+        // Solo en táctil (se comprueba al hacer click, no al cargar)
+        if (!window.matchMedia('(hover: none)').matches && !window.matchMedia('(pointer: coarse)').matches) return;
+
+        const rect = el.getBoundingClientRect();
+
+        toast.textContent = el.dataset.label;
+
+        toast.style.transform =
+            `translate(${rect.left + rect.width / 2 - toast.offsetWidth / 2}px, ${rect.top + rect.height / 2 - toast.offsetHeight / 2}px)`;
+
+        toast.classList.add('is-visible');
+
         clearTimeout(toastTimer);
-    }
-
-    document.querySelectorAll('[data-label]').forEach((el) => {
-        el.addEventListener('click', () => {
-            const rect = el.getBoundingClientRect();
-
-            toast.textContent = el.dataset.label;
-
-            // Centrado en la foto pulsada
-            toast.style.transform =
-                `translate(${rect.left + rect.width / 2 - toast.offsetWidth / 2}px, ${rect.top + rect.height / 2 - toast.offsetHeight / 2}px)`;
-
-            toast.classList.add('is-visible');
-
-            // Desaparece solo a los 1.5 s
-            clearTimeout(toastTimer);
-            toastTimer = setTimeout(hideToast, 1500);
-        });
+        toastTimer = setTimeout(hideToast, 1500);
     });
+});
 
-    // Si el usuario hace scroll, se oculta para que no quede flotando
-    window.addEventListener('scroll', hideToast, { passive: true });
-}
-
-    
-
-// --- OCULTAR HEADER Y GRID AL SCROLLEAR ---
-const hideOnScroll = document.querySelectorAll('.header, .div__section_grid:has(img)');
-const showOnScroll = document.querySelectorAll('.div__section_grid:not(:has(img))');
-const SHOW_AFTER = 300; // px de scroll antes de que aparezcan los tags
-
-let lastScrollY = window.pageYOffset;
-let ticking = false;
-
-function onScroll() {
-    const currentY = Math.max(window.pageYOffset, 0);
-    const aboutOpen = document.querySelector('.about-overlay.is-open');
-    const delta = currentY - lastScrollY;
-
-    // Tags de proyecto: aparecen tras SHOW_AFTER px, siempre
-    showOnScroll.forEach(el =>
-        el.classList.toggle('is-visible', currentY > SHOW_AFTER && !aboutOpen)
-    );
-
-    if (aboutOpen) {
-        lastScrollY = currentY;
-        return;
-    }
-
-    if (currentY <= 80) {
-        hideOnScroll.forEach(el => el.classList.remove('is-hidden'));
-        lastScrollY = currentY;
-        return;
-    }
-
-    if (Math.abs(delta) > 6) {
-        const shouldHide = delta > 0;
-        hideOnScroll.forEach(el => el.classList.toggle('is-hidden', shouldHide));
-        lastScrollY = currentY;
-    }
-}
-
-window.addEventListener('scroll', () => {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(() => {
-        onScroll();
-        ticking = false;
-    });
-}, { passive: true });
-
-onScroll(); // estado correcto al cargar
+window.addEventListener('scroll', hideToast, { passive: true });
 
