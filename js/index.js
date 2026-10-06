@@ -51,37 +51,51 @@
             });
         }
 
-// --- AVISO "COMING SOON" EN MÓVIL (tap) ---
-const toast = document.createElement('div');
-toast.className = 'cursor-label cursor-label--toast';
-toast.setAttribute('aria-hidden', 'true');
-document.body.appendChild(toast);
 
-let toastTimer;
+// --- OCULTAR HEADER Y GRID AL SCROLLEAR ---
+const hideOnScroll = document.querySelectorAll('.header, .div__section_grid:has(img)');
+const showOnScroll = document.querySelectorAll('.div__section_grid:not(:has(img))');
+const SHOW_AFTER = 300; // px de scroll antes de que aparezcan los tags
 
-function hideToast() {
-    toast.classList.remove('is-visible');
-    clearTimeout(toastTimer);
+let lastScrollY = window.pageYOffset;
+let ticking = false;
+
+function onScroll() {
+    const currentY = Math.max(window.pageYOffset, 0);
+    const aboutOpen = document.querySelector('.about-overlay.is-open');
+    const delta = currentY - lastScrollY;
+
+    // Tags de proyecto: aparecen tras SHOW_AFTER px, siempre
+    showOnScroll.forEach(el =>
+        el.classList.toggle('is-visible', currentY > SHOW_AFTER && !aboutOpen)
+    );
+
+    if (aboutOpen) {
+        lastScrollY = currentY;
+        return;
+    }
+
+    if (currentY <= 80) {
+        hideOnScroll.forEach(el => el.classList.remove('is-hidden'));
+        lastScrollY = currentY;
+        return;
+    }
+
+    if (Math.abs(delta) > 6) {
+        const shouldHide = delta > 0;
+        hideOnScroll.forEach(el => el.classList.toggle('is-hidden', shouldHide));
+        lastScrollY = currentY;
+    }
 }
 
-document.querySelectorAll('[data-label]').forEach((el) => {
-    el.addEventListener('click', () => {
-        // Solo en táctil (se comprueba al hacer click, no al cargar)
-        if (!window.matchMedia('(hover: none)').matches && !window.matchMedia('(pointer: coarse)').matches) return;
-
-        const rect = el.getBoundingClientRect();
-
-        toast.textContent = el.dataset.label;
-
-        toast.style.transform =
-            `translate(${rect.left + rect.width / 2 - toast.offsetWidth / 2}px, ${rect.top + rect.height / 2 - toast.offsetHeight / 2}px)`;
-
-        toast.classList.add('is-visible');
-
-        clearTimeout(toastTimer);
-        toastTimer = setTimeout(hideToast, 1500);
+window.addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+        onScroll();
+        ticking = false;
     });
-});
+}, { passive: true });
 
-window.addEventListener('scroll', hideToast, { passive: true });
+onScroll(); // estado correcto al cargar
 
