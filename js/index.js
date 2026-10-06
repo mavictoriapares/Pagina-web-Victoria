@@ -31,24 +31,61 @@
 
 
     // --- RATÓN "VIEW PROJECT" --
-                
         const cursorLabel = document.querySelector('.cursor-label');
-        // Fotos del index (.media__wrapper) y del grid (imágenes de .div__content_driv)
         const hoverTargets = document.querySelectorAll('.media__wrapper, .div__content_driv img');
+        const DEFAULT_LABEL = 'View project';
 
         if (cursorLabel) {
-            // La etiqueta sigue al ratón (se centra restando la mitad de su tamaño)
             document.addEventListener('mousemove', (e) => {
                 cursorLabel.style.transform =
                     `translate(${e.clientX - cursorLabel.offsetWidth / 2}px, ${e.clientY - cursorLabel.offsetHeight / 2}px)`;
             });
 
-            // Se muestra al entrar en una foto y se oculta al salir
             hoverTargets.forEach((el) => {
-                el.addEventListener('mouseenter', () => cursorLabel.classList.add('is-visible'));
+                el.addEventListener('mouseenter', () => {
+                    // Si el elemento tiene data-label usa ese texto, si no el de por defecto
+                    cursorLabel.textContent = el.dataset.label || DEFAULT_LABEL;
+                    cursorLabel.classList.add('is-visible');
+                });
                 el.addEventListener('mouseleave', () => cursorLabel.classList.remove('is-visible'));
             });
         }
+
+        // --- AVISO "COMING SOON" EN MÓVIL (tap) ---
+if (window.matchMedia('(hover: none)').matches) {
+    const toast = document.createElement('div');
+    toast.className = 'cursor-label cursor-label--toast';
+    toast.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(toast);
+
+    let toastTimer;
+
+    function hideToast() {
+        toast.classList.remove('is-visible');
+        clearTimeout(toastTimer);
+    }
+
+    document.querySelectorAll('[data-label]').forEach((el) => {
+        el.addEventListener('click', () => {
+            const rect = el.getBoundingClientRect();
+
+            toast.textContent = el.dataset.label;
+
+            // Centrado en la foto pulsada
+            toast.style.transform =
+                `translate(${rect.left + rect.width / 2 - toast.offsetWidth / 2}px, ${rect.top + rect.height / 2 - toast.offsetHeight / 2}px)`;
+
+            toast.classList.add('is-visible');
+
+            // Desaparece solo a los 1.5 s
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(hideToast, 1500);
+        });
+    });
+
+    // Si el usuario hace scroll, se oculta para que no quede flotando
+    window.addEventListener('scroll', hideToast, { passive: true });
+}
 
     
 
@@ -98,3 +135,4 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 onScroll(); // estado correcto al cargar
+

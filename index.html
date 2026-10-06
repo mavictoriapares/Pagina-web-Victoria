@@ -150,26 +150,28 @@
         <section class="section__content">
 
             <div class="div__content div__img_1">
-                <div class="media__wrapper media__wrapper--framed">
-                    <img src="Media/Proyecto_1_Default.jpg" alt="" class="media__bg">
-                    <video 
-                        class="media__video--framed" 
-                        src="Media/Proyecto_1_Video.mp4" 
-                        poster="Media/Proyecto_1_Web_Poster.jpg"
-                        autoplay 
-                        muted 
-                        loop 
-                        playsinline
-                        preload="metadata">
-                    </video>
-                </div>
-                <div class="section__description">
-                    <div class="section__description_titles">
-                        <h2 class="h2 h2__section__content">Pedro Web Portfolio</h2>
-                        <h3 class="h3 h3__section__content">2026</h3>
+                <a href="Pedro.html" class="link__project" aria-label="Ver proyecto Web Pedro">
+                    <div class="media__wrapper media__wrapper--framed">
+                        <img src="Media/Proyecto_1_Default.jpg" alt="" class="media__bg">
+                        <video 
+                            class="media__video--framed" 
+                            src="Media/Proyecto_1_Video.mp4" 
+                            poster="Media/Proyecto_1_Web_Poster.jpg"
+                            autoplay 
+                            muted 
+                            loop 
+                            playsinline
+                            preload="metadata">
+                        </video>
                     </div>
-                    <p class="p p__section__content">Web Design, Development</p>
-                </div>
+                    <div class="section__description">
+                        <div class="section__description_titles">
+                            <h2 class="h2 h2__section__content">Pedro Web Portfolio</h2>
+                            <h3 class="h3 h3__section__content">2026</h3>
+                        </div>
+                        <p class="p p__section__content">Web Design, Development</p>
+                    </div>
+                </a>
             </div>  
 
             <div class="div__content div__img_3">
@@ -214,7 +216,7 @@
             </div>
 
             <div class="div__content div__img_4">
-                <div class="media__wrapper">
+                <div class="media__wrapper" data-label="Coming soon">
                     <picture>
                         <source srcset="Media/Proyecto_4_Default.jpg" type="image/webp">
                         <img src="Media/Proyecto_3_Default.jpg" alt="img4" class="media__img media__img--default">
@@ -256,15 +258,19 @@
             </div>
 
             <div class="div__content div__img_6">
-                <div class="media__wrapper">
-                    <picture>
-                        <source srcset="Media/fotoprueba.avif" type="image/webp">
-                        <img src="Media/fotoprueba.avif" alt="img6" class="media__img media__img--default">
-                    </picture>
-                    <picture>
-                        <source srcset="Media/fotoprueba.avif" type="image/webp">
-                        <img src="Media/fotoprueba.avif" alt="img6" class="media__img media__img--hover">
-                    </picture>
+                <div class="media__wrapper media__wrapper--framed media__wrapper--color" style="--frame-bg: #1a1a1a;" data-label="Coming soon">
+                    <video
+                        class="media__video--framed"
+                        src="Media/Web_RAINS_4.mp4"
+                        poster="Media/Proyecto_6_Poster.jpg"
+                        autoplay
+                        muted
+                        loop
+                        playsinline
+                        preload="metadata"
+                        disablepictureinpicture
+                        controlslist="nodownload nofullscreen noremoteplayback">
+                    </video>
                 </div>
                 <div class="section__description">
                     <div class="section__description_titles">
@@ -283,7 +289,7 @@
             <ul class="div__section_ul">
                 <li class="div__section_li">
                     <a href="#" class="div__section_a" title="List">
-                        <img src="Media/grid.png" alt="List">
+                        <img src="Media/list.png" alt="List">
                     </a>
                 </li>
                 <li class="div__section_li">
