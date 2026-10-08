@@ -83,9 +83,9 @@
 /* ROOT */
 :root {
     /*COLORES*/
-    --text-dark: #000000; /*Color textos en negro*/
-    --text-light: #949494; /*Color textos en gris*/
-    --text-lighter: #c5c5c5; /*Color textos en gris*/
+    --text-dark: #000000; /*Color textos negro*/
+    --text-light: #949494; /*Color textos gris*/
+    --text-lighter: #c5c5c5; /*Color textos gris claro*/
 
     /*FUENTES*/
     --font-family: 'Aspekta', sans-serif; 
@@ -94,8 +94,8 @@
     --max-width-xl: 1920px; 
 
     /*TAMAÑOS IMÁGENES*/
-    --img-ratio: 660 / 660; /* proporción en desktop (rectangular) */
-    --img-ratio-compact: 5 / 5; /* proporción "un poco cuadrada" para ipad/mobile*/
+    --img-ratio: 660 / 660; /* Desktop */
+    --img-ratio-compact: 5 / 5; /* Ipad/Mobile*/
 
     /*MÁRGENES*/
     --side-margin: clamp(16px, 3vw, 64px);
@@ -137,13 +137,13 @@ li {
 }
 
 html, .about-overlay {
-    scrollbar-width: none;          /* Firefox */
-    -ms-overflow-style: none;       /* Edge antiguo */
+    scrollbar-width: none;        
+    -ms-overflow-style: none;       
 }
 
 html::-webkit-scrollbar,
 .about-overlay::-webkit-scrollbar {
-    display: none;                  /* Chrome, Safari, Edge */
+    display: none;                 
 }
 
 video::-webkit-media-controls,
@@ -159,7 +159,6 @@ body {
     padding-bottom: 80px;
 }
 
-/* TRANSICIÓN ENTRADA WEBSITE */
 /* TRANSICIÓN DE ENTRADA */
 @keyframes fade-up {
     from {
@@ -234,13 +233,11 @@ body {
     opacity: 1;
 }
 
-/* Oculta el cursor normal solo sobre las fotos */
 .media__wrapper,
 .div__content_driv img {
     cursor: none;
 }
 
-/* En táctil no hay hover: no se muestra */
 @media (hover: none) {
     .cursor-label {
         display: none;
@@ -248,13 +245,12 @@ body {
 }
 
 /* HEADER */
-/* HEADER */
 .header {
     height: var(--header-height);
     display: flex;
     justify-content: center;
-    align-items: flex-start;      /* antes: center */
-    padding-top: 18px;            /* distancia al borde superior */
+    align-items: flex-start;      
+    padding-top: 18px;            
     position: fixed;
     top: 0;
     left: 0;
@@ -274,8 +270,6 @@ body {
     backdrop-filter: var(--btn-blur);
     -webkit-backdrop-filter: var(--btn-blur);
     transition: background 0.6s ease;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
     padding-top: 4.5px;
     padding-bottom: 4.5px;
     padding-left: 0;
@@ -486,9 +480,8 @@ body.no-scroll {
 }
 
 /* HERO */
-
 .header a {
-    color: var(--text-dark);   /* el color que quieras */
+    color: var(--text-dark);  
 }
 
 .section__hero {
@@ -639,7 +632,6 @@ body.no-scroll {
 }
 
 /* BUTTONS GRID */
-/* BUTTONS GRID */
 .div__section_grid {
     height: 70px;
     display: flex;
@@ -665,9 +657,6 @@ body.no-scroll {
 
 .div__section_li {
     background: var(--btn-bg);
-    backdrop-filter: var(--btn-glass);
-    -webkit-backdrop-filter: var(--btn-glass);
-    box-shadow: var(--btn-shine);
     transition: background 0.6s ease;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -684,12 +673,12 @@ body.no-scroll {
     font-size: 14px;
 }
 
-/* TAGS FIJOS EN PÁGINAS DE PROYECTO (ocultos hasta hacer scroll) */
+/* TAGS FIJOS EN PÁGINAS DE PROYECTO */
 .div__section_grid:not(:has(img)) {
     transform: translateY(100%);
     opacity: 0;
     pointer-events: none;
-    animation: none; /* evita que parpadeen al cargar */
+    animation: none;
 }
 
 .div__section_grid:not(:has(img)).is-visible {
@@ -701,7 +690,6 @@ body.no-scroll {
     pointer-events: auto;
 }
 
-/* Tags fijos: mismo aspecto que .li__skills */
 .div__section_grid:not(:has(img)) .div__section_ul {
     gap: 12px;
 }
@@ -800,7 +788,7 @@ body.no-scroll {
     object-fit: cover;
 }
 
-    /* RESEARCH */
+/* RESEARCH */
 .div__research {
     display: flex;
     flex-direction: column;
@@ -843,7 +831,6 @@ body.no-scroll {
 .image__center {
     display: block;
     grid-template-columns: none;
-    /* ancho de una columna del grid de 2 columnas con gap de 24px */
     width: calc((100% - 24px) / 2);
     margin-inline: auto;
 }
@@ -865,7 +852,7 @@ body.no-scroll {
 
 @media (max-width: 600px) {
     .image__center {
-        width: 100%; /* en móvil el grid ya es de 1 columna, ocupa todo el ancho */
+        width: 100%; 
     }
 }
 
@@ -916,22 +903,22 @@ body.no-scroll {
     aspect-ratio: auto;
     object-fit: cover;
     display: block;
-    transform: scale(1.03);   /* antes 1.20, demasiado */
+    transform: scale(1.03);  
 }
 
 /* FOOTER */
-    .p__footer {
-        display: flex;
-        justify-content: center;
-        color: var(--text-light);
-        font-family: var(--font-family);
-        font-weight: 350;
-        font-size: 15px;
-        padding-top: 46px;
-        padding-bottom: 46px;
-    }
+.p__footer {
+    display: flex;
+    justify-content: center;
+    color: var(--text-light);
+    font-family: var(--font-family);
+    font-weight: 350;
+    font-size: 15px;
+    padding-top: 46px;
+    padding-bottom: 46px;
+}
 
-    /* BOTONES INFERIORES: una sola píldora (solo en index y grid, los que llevan imagen) */
+/* BOTONES INFERIORES */
 .div__section_grid:has(img) .div__section_ul {
     gap: 1;
     flex-wrap: nowrap;
@@ -957,9 +944,9 @@ body.no-scroll {
     }
 }
 
-/* ICONOS LIST / GRID (sin tocar el HTML) */
+/* ICONOS LIST / GRID */
 .div__section_grid:has(img) {
-    --icon-size: 22px;   /* cambia aquí el tamaño */
+    --icon-size: 22px;  
 }
 
 .div__section_grid:has(img) .div__section_a {
@@ -970,7 +957,7 @@ body.no-scroll {
 }
 
 
-/*-----------------------MEDIA QUERYS---------------------*/
+/* MEDIA QUERYS */
 
 /* MEDIA LAPTOP */
 @media (max-width: 1500px) {
@@ -1007,7 +994,7 @@ body.no-scroll {
     }
 
     }
- 
+
     .div__section_a img {
     width: 22px;
     height: 22px;
@@ -1038,7 +1025,7 @@ body.no-scroll {
     } 
 
     .section__content {
-        gap: 46px;   /* antes 60px */
+        gap: 46px; 
     }
 
     .section__content_grid {
@@ -1089,7 +1076,7 @@ body.no-scroll {
         font-weight: 400;
     }
 
-       /* PROJECTS */
+    /* PROJECTS */
     .div__project_container {
         padding-top: 110px;   
         padding-bottom: 28px; 
@@ -1100,6 +1087,6 @@ body.no-scroll {
         padding-top: 36px;   
     }
 }
-/*----------------MEDIA QUERYS---------------*/
+/* MEDIA QUERYS */
 
 
