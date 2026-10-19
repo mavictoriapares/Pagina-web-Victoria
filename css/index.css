@@ -513,7 +513,6 @@ body.no-scroll {
     height: 100%;
     object-fit: cover;
     display: block;
-    filter: blur(6px); 
 }
 
 .media__video--framed {
@@ -787,6 +786,26 @@ body.no-scroll {
     aspect-ratio: 1 / 1;
     object-fit: cover;
 }
+
+.media__bg {
+    transform: scale(1.1);
+}
+
+.div__gallery_group .media__wrapper--framed {
+    border-radius: 10px;
+}
+
+.div__gallery_group .media__video--framed {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    transform: none;
+    width: 80%;
+    height: auto;
+    aspect-ratio: auto;
+    border-radius: 4px;
+}
+
 
 /* RESEARCH */
 .div__research {
