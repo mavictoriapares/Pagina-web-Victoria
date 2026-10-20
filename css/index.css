@@ -194,6 +194,13 @@ body {
     animation: fade-up 1s ease 0.25s both;
 }
 
+.div__gallery_group .media__video--framed.media__video--phone {
+    width: 40%;          /* más pequeño: ajusta a tu gusto (30%–50%) */
+    border-radius: 4px; /* esquinas redondeadas */
+    aspect-ratio: auto;
+    object-fit: cover;
+}
+
 @media (prefers-reduced-motion: reduce) {
     .header,
     .div__section_grid,
@@ -513,6 +520,39 @@ body.no-scroll {
     height: 100%;
     object-fit: cover;
     display: block;
+}
+
+.media__wrapper--color-pedro {
+    background: #DFDFDF;   /* pon aquí el color que elijas */
+    aspect-ratio: 1 / 1;   /* cuadrado, igual que el resto de la rejilla */
+}
+
+.img__gallery--blur {
+    opacity: 0.2;
+}
+
+.media__color--wide {
+    width: 100%;
+    aspect-ratio: 16 / 7;     /* misma proporción que .img__gallery */
+    border-radius: 10px;
+    background: #DFDFDF;      /* pon aquí el color que elijas */
+}
+
+@media (max-width: 600px) {
+    .media__color--wide {
+        aspect-ratio: 16 / 10;  /* igual que .img__gallery en móvil */
+    }
+}
+
+.media__color--wide {
+    position: relative;   /* por si no usas media__wrapper--framed */
+    overflow: hidden;
+}
+
+.media__video--wide {
+    width: auto;
+    height: 60%;          /* se ajusta a la altura del bloque, no al ancho */
+    max-width: 65%;
 }
 
 .media__video--framed {
@@ -837,11 +877,13 @@ body.no-scroll {
     gap: 8px;
 }
 
-.div__content .img__content {
+.div__research .img__content {
+    width: 100%;
     aspect-ratio: 16 / 7;
     object-fit: cover;
-    width: 100%;
+    object-position: center;
 }
+
 
 .p__research {
     margin-bottom: 2px;
