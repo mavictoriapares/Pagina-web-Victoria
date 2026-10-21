@@ -1154,6 +1154,17 @@ body.no-scroll {
         padding-top: 36px;   
     }
 }
+
+@media (max-width: 375px) {
+    .section__hero {
+        width: 92%;
+    }
+
+    .section__h1 {
+        font-size: 19px;
+        line-height: 129%;
+    }
+}
 /* MEDIA QUERYS */
 
 
