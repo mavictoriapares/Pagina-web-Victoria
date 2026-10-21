@@ -99,31 +99,75 @@ window.addEventListener('scroll', () => {
 
 onScroll(); // estado correcto al cargar
 
-// --- AUTOPLAY VÍDEOS EN MÓVIL ---
+
+// --- VÍDEOS: CARGA DIFERIDA + PLAY SOLO SI SON VISIBLES ---
 const autoVideos = document.querySelectorAll('video[autoplay]');
 
-function tryPlay(video) {
-    video.muted = true;               // forzar mute por JS
-    video.setAttribute('playsinline', '');
-    const p = video.play();
-    if (p !== undefined) p.catch(() => {});   // si falla, no hacemos nada
+// Quita el src de un vídeo para que no se descargue
+function deferVideo(video) {
+    video.preload = 'none';
+
+    if (video.getAttribute('src')) {
+        video.dataset.lazySrc = video.getAttribute('src');
+        video.removeAttribute('src');
+    }
+    video.querySelectorAll('source[src]').forEach((s) => {
+        s.dataset.lazySrc = s.getAttribute('src');
+        s.removeAttribute('src');
+    });
+
+    video.dataset.deferred = 'true';
+    video.load(); // cancela la descarga en curso
 }
 
-autoVideos.forEach(tryPlay);
+// Devuelve el src justo antes de reproducirlo
+function loadVideo(video) {
+    if (video.dataset.deferred !== 'true') return;
 
-// Si el navegador lo bloqueó, reintenta con el primer toque o scroll
-['touchstart', 'click', 'scroll'].forEach((evt) => {
-    window.addEventListener(evt, () => autoVideos.forEach((v) => {
-        if (v.paused) tryPlay(v);
-    }), { once: true, passive: true });
+    if (video.dataset.lazySrc) video.src = video.dataset.lazySrc;
+    video.querySelectorAll('source[data-lazy-src]').forEach((s) => {
+        s.src = s.dataset.lazySrc;
+    });
+
+    video.preload = 'metadata';
+    video.load();
+    delete video.dataset.deferred;
+}
+
+function tryPlay(video) {
+    loadVideo(video);
+    video.muted = true;
+    video.setAttribute('playsinline', '');
+    const p = video.play();
+    if (p !== undefined) p.catch(() => {});
+}
+
+// Al cargar: los vídeos que ya se ven se quedan igual,
+// los que están lejos de la pantalla se aplazan
+autoVideos.forEach((v) => {
+    const rect = v.getBoundingClientRect();
+    const nearViewport = rect.top < window.innerHeight + 300;
+    if (nearViewport) v.preload = 'metadata';
+    else deferVideo(v);
 });
 
-// Reproduce solo los vídeos visibles (ahorra batería)
 const io = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
         if (entry.isIntersecting) tryPlay(entry.target);
         else entry.target.pause();
     });
-}, { threshold: 0.25 });
+}, { threshold: 0.25, rootMargin: '300px 0px' });
 
 autoVideos.forEach((v) => io.observe(v));
+
+// Si el navegador bloqueó el autoplay, reintenta solo los visibles
+['touchstart', 'click', 'scroll'].forEach((evt) => {
+    window.addEventListener(evt, () => {
+        autoVideos.forEach((v) => {
+            if (v.paused && v.dataset.deferred !== 'true') {
+                io.unobserve(v);
+                io.observe(v);
+            }
+        });
+    }, { once: true, passive: true });
+});
