@@ -13,6 +13,14 @@
                 document.body.classList.remove('no-scroll');
             }
 
+            requestAnimationFrame(() => requestAnimationFrame(() => {
+                overlay.classList.add('is-ready');
+            }));
+
+            window.addEventListener('pageshow', (e) => {
+                if (e.persisted) closePanel();
+            });
+
             // Botón About: abre y cierra
             trigger.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -100,74 +108,24 @@ window.addEventListener('scroll', () => {
 onScroll(); // estado correcto al cargar
 
 
-// --- VÍDEOS: CARGA DIFERIDA + PLAY SOLO SI SON VISIBLES ---
+// --- VÍDEOS: autoplay solo si son visibles ---
 const autoVideos = document.querySelectorAll('video[autoplay]');
 
-// Quita el src de un vídeo para que no se descargue
-function deferVideo(video) {
-    video.preload = 'none';
-
-    if (video.getAttribute('src')) {
-        video.dataset.lazySrc = video.getAttribute('src');
-        video.removeAttribute('src');
-    }
-    video.querySelectorAll('source[src]').forEach((s) => {
-        s.dataset.lazySrc = s.getAttribute('src');
-        s.removeAttribute('src');
-    });
-
-    video.dataset.deferred = 'true';
-    video.load(); // cancela la descarga en curso
-}
-
-// Devuelve el src justo antes de reproducirlo
-function loadVideo(video) {
-    if (video.dataset.deferred !== 'true') return;
-
-    if (video.dataset.lazySrc) video.src = video.dataset.lazySrc;
-    video.querySelectorAll('source[data-lazy-src]').forEach((s) => {
-        s.src = s.dataset.lazySrc;
-    });
-
-    video.preload = 'metadata';
-    video.load();
-    delete video.dataset.deferred;
-}
-
-function tryPlay(video) {
-    loadVideo(video);
-    video.muted = true;
-    video.setAttribute('playsinline', '');
-    const p = video.play();
-    if (p !== undefined) p.catch(() => {});
-}
-
-// Al cargar: los vídeos que ya se ven se quedan igual,
-// los que están lejos de la pantalla se aplazan
 autoVideos.forEach((v) => {
-    const rect = v.getBoundingClientRect();
-    const nearViewport = rect.top < window.innerHeight + 300;
-    if (nearViewport) v.preload = 'metadata';
-    else deferVideo(v);
+    v.muted = true;
+    v.defaultMuted = true;
+    v.playsInline = true;
 });
 
 const io = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-        if (entry.isIntersecting) tryPlay(entry.target);
-        else entry.target.pause();
+    entries.forEach(({ target, isIntersecting }) => {
+        if (isIntersecting) {
+            const p = target.play();
+            if (p) p.catch(() => {});
+        } else {
+            target.pause();
+        }
     });
-}, { threshold: 0.25, rootMargin: '300px 0px' });
+}, { threshold: 0.25, rootMargin: '200px 0px' });
 
 autoVideos.forEach((v) => io.observe(v));
-
-// Si el navegador bloqueó el autoplay, reintenta solo los visibles
-['touchstart', 'click', 'scroll'].forEach((evt) => {
-    window.addEventListener(evt, () => {
-        autoVideos.forEach((v) => {
-            if (v.paused && v.dataset.deferred !== 'true') {
-                io.unobserve(v);
-                io.observe(v);
-            }
-        });
-    }, { once: true, passive: true });
-});

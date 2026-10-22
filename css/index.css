@@ -323,7 +323,10 @@ body {
     overscroll-behavior: contain;
     visibility: hidden;
     pointer-events: none;
-    transition: visibility 0s linear 0.8s; 
+}
+
+.about-overlay.is-ready {
+    transition: visibility 0s linear 0.8s;
 }
 
 .about-overlay::before {
@@ -335,6 +338,9 @@ body {
     -webkit-backdrop-filter: blur(4px);
     z-index: -1;
     opacity: 0;
+}
+
+.about-overlay.is-ready::before {
     transition: opacity 0.8s ease;
 }
 
@@ -360,6 +366,9 @@ body {
     border-radius: 6px;
     transform: translateY(30px); 
     opacity: 0;
+}
+
+.about-overlay.is-ready .about-panel {
     transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
@@ -987,7 +996,7 @@ body.no-scroll {
 
 /* BOTONES INFERIORES */
 .div__section_grid:has(img) .div__section_ul {
-    gap: 1;
+    gap: 1px;
     flex-wrap: nowrap;
     padding: 4px;
     background: var(--btn-bg);
