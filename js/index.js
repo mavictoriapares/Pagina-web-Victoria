@@ -27,6 +27,18 @@
                 togglePanel();
             });
 
+            // Botón Work: si About está abierto, solo lo cierra
+            const workLink = document.querySelector('.nav__a:not(#aboutTrigger)');
+
+            if (workLink) {
+                workLink.addEventListener('click', (e) => {
+                    if (overlay.classList.contains('is-open')) {
+                        e.preventDefault();
+                        closePanel();
+                    }
+                });
+            }
+
             // Solo cierra si el clic es en el fondo, no dentro de la tarjeta
             overlay.addEventListener('click', (e) => {
                 if (e.target === overlay) closePanel();
