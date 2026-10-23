@@ -1053,7 +1053,7 @@ body.no-scroll {
 
      /* MEDIA WORK */
     .section__h1 {
-    font-size: clamp(16px, 5.1vw, 29px);
+    font-size: clamp(15px, 4.85vw, 29px);
     }
 
     :root {
