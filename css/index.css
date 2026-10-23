@@ -515,6 +515,7 @@ body.no-scroll {
     font-size: 29px;
     line-height: 125%;
     font-family: var(--font-family);
+    white-space: nowrap;
 }
 
 /* CONTENT */
@@ -1052,7 +1053,7 @@ body.no-scroll {
 
      /* MEDIA WORK */
     .section__h1 {
-    font-size: 30px;
+    font-size: clamp(14px, 4.6vw, 29px);
     }
 
     :root {
@@ -1084,7 +1085,6 @@ body.no-scroll {
     /* MEDIA WORK */
 
     .section__h1 {
-    font-size: 20px;
     line-height: 126%;
     }
 
@@ -1164,16 +1164,6 @@ body.no-scroll {
     }
 }
 
-@media (max-width: 375px) {
-    .section__hero {
-        width: 92%;
-    }
-
-    .section__h1 {
-        font-size: 19px;
-        line-height: 129%;
-    }
-}
 /* MEDIA QUERYS */
 
 
