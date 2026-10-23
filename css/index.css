@@ -201,7 +201,7 @@ body {
     object-fit: cover;
 }
 
-.media__video--framed {
+.pedro_video_up {
     clip-path: inset(1px 0 0 0);
 }
 
