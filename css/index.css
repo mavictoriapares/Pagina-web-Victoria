@@ -201,6 +201,10 @@ body {
     object-fit: cover;
 }
 
+.media__video--framed {
+    clip-path: inset(1px 0 0 0);
+}
+
 @media (prefers-reduced-motion: reduce) {
     .header,
     .div__section_grid,
