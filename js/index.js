@@ -121,7 +121,7 @@ onScroll(); // estado correcto al cargar
 
 
 // --- VÍDEOS: autoplay solo si son visibles ---
-const autoVideos = document.querySelectorAll('video[autoplay]');
+const autoVideos = document.querySelectorAll('video[autoplay], video[data-lazy]');
 
 autoVideos.forEach((v) => {
     v.muted = true;
