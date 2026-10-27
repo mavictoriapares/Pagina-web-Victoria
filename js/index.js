@@ -127,13 +127,23 @@ autoVideos.forEach((v) => {
     v.muted = true;
     v.defaultMuted = true;
     v.playsInline = true;
+    v.setAttribute('muted', '');
+    v.setAttribute('playsinline', '');
 });
+
+function tryPlay(video) {
+    const p = video.play();
+    if (p) {
+        p.catch(() => {
+            video.addEventListener('canplay', () => video.play().catch(() => {}), { once: true });
+        });
+    }
+}
 
 const io = new IntersectionObserver((entries) => {
     entries.forEach(({ target, isIntersecting }) => {
         if (isIntersecting) {
-            const p = target.play();
-            if (p) p.catch(() => {});
+            tryPlay(target);
         } else {
             target.pause();
         }
